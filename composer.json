@@ -1,5 +1,5 @@
 {
-    "name": "paulhenri-l/task-runner",
+    "name": "paulhenri-l/laravel-task-runner",
     "description": "Helps you compose command workflows as a set of tasks",
     "type": "library",
     "license": "MIT",
