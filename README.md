@@ -1,7 +1,7 @@
 # LaravelTaskRunner
 
 ![Tests](https://github.com/paulhenri-l/laravel-task-runner/workflows/Tests/badge.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 
 This tool will help you run a defined set of tasks in your commands. It's useful 
