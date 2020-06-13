@@ -17,10 +17,10 @@ This tool is used inside both
 php artisan my-command
 
 [Some\Namespace\MyFirstTask]
-  Hello from MyFirstTask.
+Hello from MyFirstTask.
 
 [Some\Namespace\MySecondTask]
-  MySecondTask Complete.
+MySecondTask Complete.
 
 Installation done 🎉
 ```

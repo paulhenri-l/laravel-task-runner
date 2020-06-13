@@ -27,8 +27,6 @@ trait CanRunTasks
                 $this->line('');
             }
         }
-
-        $this->indentOutput(0);
     }
 
     /**
@@ -36,28 +34,36 @@ trait CanRunTasks
      */
     protected function runTask($task, array $args): void
     {
-        $this->indentOutput(0);
         $this->output->writeln('[' . get_class($task) . ']');
 
-        $output = $this->indentOutput(2);
+        $output = $this->spyOutput();
         $task->run(...$args);
+        $this->resetOutput();
 
         if (!$output->hasBeenWritten()) {
-            $this->info(class_basename($task) .' Complete.');
+            $this->info(class_basename($task) . ' Complete.');
         }
     }
 
     /**
-     * Switch to indented output.
+     * Spy the output.
      */
-    protected function indentOutput(int $indent = 4): IndentedOutput
+    protected function spyOutput(): SpyOutput
     {
         if (!$this->originalOutput) {
             $this->originalOutput = $this->output;
         }
 
-        $this->output = new IndentedOutput($this->originalOutput, $indent);
+        $this->output = new SpyOutput($this->originalOutput);
 
         return $this->output;
+    }
+
+    /**
+     * Reset the output
+     */
+    protected function resetOutput()
+    {
+        $this->setOutput($this->originalOutput);
     }
 }

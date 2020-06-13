@@ -12,9 +12,9 @@ class TasksRunTest extends TestCase
     {
         $this->artisan('fake-command')
             ->expectsOutput('[' . TaskWithoutOutput::class . ']')
-            ->expectsOutput('  TaskWithoutOutput Complete.')
-            ->expectsOutput('  ')
+            ->expectsOutput('TaskWithoutOutput Complete.')
+            ->expectsOutput('')
             ->expectsOutput('[' . TaskWithOutput::class . ']')
-            ->expectsOutput('  Hello.');
+            ->expectsOutput('Hello.');
     }
 }

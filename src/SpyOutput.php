@@ -5,7 +5,7 @@ namespace PaulhenriL\LaravelTaskRunner;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class IndentedOutput implements OutputInterface
+class SpyOutput implements OutputInterface
 {
     /**
      * The decorated output interface.
@@ -22,19 +22,11 @@ class IndentedOutput implements OutputInterface
     protected $written = false;
 
     /**
-     * The indent.
-     *
-     * @var string
-     */
-    protected $indent;
-
-    /**
      * IndentedOutput constructor.
      */
-    public function __construct(OutputInterface $output, int $indent)
+    public function __construct(OutputInterface $output)
     {
         $this->output = $output;
-        $this->indent = str_repeat(' ', $indent);
     }
 
     /**
@@ -54,17 +46,7 @@ class IndentedOutput implements OutputInterface
     {
         $this->written = true;
 
-        if (is_string($messages)) {
-            $messages = $this->indent . $messages;
-        } else {
-            $messages = [];
-
-            foreach ($messages as $message) {
-                $messages[] = $this->indent . $message;
-            }
-        }
-
-        $this->output->writeln($messages, $options);
+        $this->output->writeln(...func_get_args());
     }
 
     /**
