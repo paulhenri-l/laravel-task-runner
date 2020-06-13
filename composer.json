@@ -1,0 +1,29 @@
+{
+    "name": "paulhenri-l/task-runner",
+    "description": "Helps you compose command workflows as a set of tasks",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "paulhenri-l",
+            "email": "25308170+paulhenri-l@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "laravel/laravel": "^7.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.3",
+        "phpunit/phpunit": "^9.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "PaulhenriL\\LaravelTaskRunner\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PaulhenriL\\LaravelTaskRunner\\Tests\\": "tests"
+        }
+    }
+}
