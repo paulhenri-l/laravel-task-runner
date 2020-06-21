@@ -16,7 +16,7 @@ trait CanRunTasks
     /**
      * Run the given tasks with the given arguments.
      */
-    protected function runTasks(array $tasks): void
+    protected function runTasks(array $tasks): bool
     {
         $tasks = $this->prepareTasks($tasks);
 
@@ -24,13 +24,15 @@ trait CanRunTasks
             $result = $this->runTask($task);
 
             if (!$result) {
-                break;
+                return false;
             }
 
             if (count($tasks)) {
                 $this->line('');
             }
         }
+
+        return true;
     }
 
     /**
