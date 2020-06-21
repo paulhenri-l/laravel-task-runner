@@ -23,9 +23,9 @@ class FakeCommand extends Command
     public function handle()
     {
         $this->runTasks([
-            TaskWithoutOutput::class,
+            new TaskWithoutOutput,
             TaskWithOutput::class
-        ], $this);
+        ]);
     }
 }
 

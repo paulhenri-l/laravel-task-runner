@@ -36,11 +36,12 @@ composer require paulhenri-l/laravel-task-runner
 In order to use the TaskRunner you need to add the `CanRunTasks` trait to your
 command and call the `runTasks` method.
 
-The first argument is the array of tasks you want to run, any argument given
-after that will be forwarder to the tasks.
+The only argument is the array of tasks you want to run. A task is an invokable
+class. You can either pass instances of tasks or their classname.
 
-As tasks are resolved through laravel's container so you can type hint any 
-dependency you may need in your task's constructor.
+*If you pass in a classname the task will be resolved through laravel's
+container, so you can type hint any dependency you may need in your task's
+constructor.*
 
 ### Use the trait
 
@@ -60,8 +61,8 @@ class FakeCommand extends Illuminate\Console\Command
     {
         $this->runTasks([
             MyFirstTask::class,
-            MySecondTask::class
-        ], $this, 'arument2', 'argumentN...');
+            new MySecondTask()
+        ]);
 
         $this->info('Installation done 🎉');
     }
@@ -71,14 +72,19 @@ class FakeCommand extends Illuminate\Console\Command
 ### Writing a task
 
 ```php
-class MyFirstTask
+<?php
+
+use Illuminate\Console\Command;
+use PaulhenriL\LaravelTaskRunner\TaskInterface;
+
+class MyFirstTask implements TaskInterface
 {
     public function __construct(SomeDependency $someDependency)
     {
         //
     }
 
-    public function __invoke($command, $argument2, $argumentN)
+    public function __invoke(Command $command)
     {
         $command->info('Hello from MyFirstTask.');
     }
@@ -91,9 +97,14 @@ If you want to stop early you only need to return false from your task.
 
 
 ```php
-class MySecondTask
+<?php
+
+use Illuminate\Console\Command;
+use PaulhenriL\LaravelTaskRunner\TaskInterface;
+
+class SomeTask implements TaskInterface
 {
-    public function __invoke()
+    public function __invoke(Command $command)
     {
         if ($thereIsAnError) {
             return false;

@@ -2,7 +2,6 @@
 
 namespace PaulhenriL\LaravelTaskRunner\Tests\Fakes;
 
-
 use Illuminate\Console\Command;
 use PaulhenriL\LaravelTaskRunner\CanRunTasks;
 
@@ -24,9 +23,9 @@ class FakeCommandTwo extends Command
     {
         $this->runTasks([
             TaskWithoutOutput::class,
-            TaskBreak::class,
+            new TaskBreak,
             TaskWithOutput::class
-        ], $this);
+        ]);
     }
 }
 
