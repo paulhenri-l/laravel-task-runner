@@ -5,6 +5,7 @@ namespace PaulhenriL\LaravelTaskRunner\Tests;
 use Illuminate\Console\Application;
 use Illuminate\Console\Application as Artisan;
 use PaulhenriL\LaravelTaskRunner\Tests\Fakes\FakeCommand;
+use PaulhenriL\LaravelTaskRunner\Tests\Fakes\FakeCommandTwo;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -14,15 +15,12 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         Artisan::starting(function (Application $artisan) {
             $artisan->add(new FakeCommand());
+            $artisan->add(new FakeCommandTwo());
         });
     }
 
     protected function resolveApplicationConfiguration($app)
     {
         parent::resolveApplicationConfiguration($app);
-
-//        $app->make('config')->set(
-//            'app.key', '00000000000000000000000000000000'
-//        );
     }
 }

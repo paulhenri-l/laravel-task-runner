@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class TaskWithOutput
 {
-    public function run(Command $command)
+    public function __invoke(Command $command)
     {
         $command->info('Hello.');
     }

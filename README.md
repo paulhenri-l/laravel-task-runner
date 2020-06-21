@@ -78,11 +78,26 @@ class MyFirstTask
         //
     }
 
-    public function run($command, $argument2, $argumentN)
+    public function __invoke($command, $argument2, $argumentN)
     {
         $command->info('Hello from MyFirstTask.');
     }
 }
 ```
 
+### Stop early
 
+If you want to stop early you only need to return false from your task.
+
+
+```php
+class MySecondTask
+{
+    public function __invoke()
+    {
+        if ($thereIsAnError) {
+            return false;
+        }
+    }
+}
+```

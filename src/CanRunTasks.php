@@ -19,9 +19,13 @@ trait CanRunTasks
     protected function runTasks(array $tasks, ...$args): void
     {
         while ($task = array_shift($tasks)) {
-            $this->runTask(
+            $result = $this->runTask(
                 $this->getLaravel()->make($task), $args
             );
+
+            if (!$result) {
+                break;
+            }
 
             if (count($tasks)) {
                 $this->line('');
@@ -32,17 +36,19 @@ trait CanRunTasks
     /**
      * Run the given task.
      */
-    protected function runTask($task, array $args): void
+    protected function runTask($task, array $args): bool
     {
         $this->output->writeln('[' . get_class($task) . ']');
 
         $output = $this->spyOutput();
-        $task->run(...$args);
+        $result = $task(...$args);
         $this->resetOutput();
 
         if (!$output->hasBeenWritten()) {
             $this->info(class_basename($task) . ' Complete.');
         }
+
+        return is_null($result) ? true : $result;
     }
 
     /**
